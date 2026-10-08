@@ -74,6 +74,85 @@ export interface Supplier {
   rating: number; // 1-5
   paymentTerms: string;
 }
+export interface SupplierOffering {
+  id: string;
+  supplierId: string;
+  supplierName: string;
+
+  medicineId: string;
+  medicineName: string;
+
+  unitPurchasePrice: number;
+  minOrderQuantity: number;
+  leadTimeDays: number;
+
+  availability:
+    | 'in_stock'
+    | 'limited'
+    | 'out_of_stock';
+
+  lastUpdated: string;
+}
+
+export interface Pharmacy {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
+
+  latitude: number;
+  longitude: number;
+
+  rating: number;
+
+  open24Hours: boolean;
+
+  deliveryAvailable: boolean;
+  deliveryFee: number;
+
+  status: 'active' | 'inactive';
+}
+
+export interface PharmacyInventoryOffer {
+  id: string;
+
+  pharmacyId: string;
+
+  medicineKey: string;
+
+  medicineName: string;
+  genericName: string;
+  strength: string;
+  dosageForm: string;
+
+  price: number;
+  stock: number;
+
+  prescriptionRequired: boolean;
+
+  lastUpdated: string;
+}
+
+export interface SupplierRecommendation {
+  supplier: Supplier;
+  offering: SupplierOffering;
+
+  score: number;
+  estimatedCost: number;
+
+  reasons: string[];
+}
+
+export interface PharmacyRecommendation {
+  pharmacy: Pharmacy;
+  offer: PharmacyInventoryOffer;
+
+  score: number;
+
+  distanceKm?: number;
+
+  reasons: string[];
+}
 
 export interface Customer {
   id: string;

@@ -13,9 +13,19 @@ import {
   PharmacySettings,
   AIInsight,
   GenericSuggestion,
+  SupplierOffering,
+Pharmacy,
+PharmacyInventoryOffer,
   SaleItem,
   PurchaseItem
 } from '../types';
+
+import {
+  INITIAL_SUPPLIER_OFFERINGS,
+  INITIAL_PHARMACIES,
+  INITIAL_PHARMACY_INVENTORY
+} from '../data/recommendationMockData';
+
 import { storageService } from '../services/storageService';
 import { INITIAL_SETTINGS } from '../data/mockData';
 import { generateLiveInsights } from '../services/aiService';
@@ -220,6 +230,21 @@ export const PharmacyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [globalSearchQuery, setGlobalSearchQuery] = useState<string>('');
   const [selectedMedicineIdForDetails, setSelectedMedicineIdForDetails] = useState<string | null>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  const [supplierOfferings, setSupplierOfferings] =
+  useState<SupplierOffering[]>(
+    INITIAL_SUPPLIER_OFFERINGS
+  );
+
+const [pharmacies, setPharmacies] =
+  useState<Pharmacy[]>(
+    INITIAL_PHARMACIES
+  );
+
+const [pharmacyInventory, setPharmacyInventory] =
+  useState<PharmacyInventoryOffer[]>(
+    INITIAL_PHARMACY_INVENTORY
+  );
 
   // Toast Helper
   const addToast = useCallback((type: 'success' | 'error' | 'warning' | 'info', title: string, message: string) => {
@@ -908,6 +933,14 @@ export const PharmacyProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     resetToDemoData,
     toasts,
     addToast,
+    supplierOfferings,
+setSupplierOfferings,
+
+pharmacies,
+setPharmacies,
+
+pharmacyInventory,
+setPharmacyInventory,
     removeToast
   };
 

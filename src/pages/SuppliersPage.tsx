@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { SupplierRecommendationPanel } from '../components/recommendations/SupplierRecommendationPanel';
 import { usePharmacy } from '../context/PharmacyContext';
 import { Supplier } from '../types';
 import {
@@ -96,6 +97,7 @@ export const SuppliersPage: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
+      <SupplierRecommendationPanel />
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-xl font-bold text-slate-900 tracking-tight">

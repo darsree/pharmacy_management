@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { PharmacyProvider, usePharmacy } from './context/PharmacyContext';
 import { Sidebar } from './components/layout/Sidebar';
@@ -5,6 +6,7 @@ import { Topbar } from './components/layout/Topbar';
 import { ToastContainer } from './components/common/ToastContainer';
 
 // Pages
+import { PharmacyFinderPage } from './pages/PharmacyFinderPage';
 import { DashboardPage } from './pages/DashboardPage';
 import { MedicinesPage } from './pages/MedicinesPage';
 import { InventoryPage } from './pages/InventoryPage';
@@ -29,6 +31,7 @@ import { CreatePurchaseOrderModal } from './components/modals/CreatePurchaseOrde
 import { ReceiveStockModal } from './components/modals/ReceiveStockModal';
 import { MedicineDetailDrawer } from './components/modals/MedicineDetailDrawer';
 import { AiAssistantDrawer } from './components/modals/AiAssistantDrawer';
+
 import { Medicine } from './types';
 
 const PharmacyAppContent: React.FC = () => {
@@ -48,11 +51,18 @@ const PharmacyAppContent: React.FC = () => {
     setSelectedPOForReceiving
   } = usePharmacy();
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-  const [isAiDrawerOpen, setIsAiDrawerOpen] = useState<boolean>(false);
-  const [editingMedicine, setEditingMedicine] = useState<Medicine | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] =
+    useState<boolean>(false);
 
-  const handleOpenEditMedicine = (med: Medicine) => {
+  const [isAiDrawerOpen, setIsAiDrawerOpen] =
+    useState<boolean>(false);
+
+  const [editingMedicine, setEditingMedicine] =
+    useState<Medicine | null>(null);
+
+  const handleOpenEditMedicine = (
+    med: Medicine
+  ) => {
     setEditingMedicine(med);
     setIsAddMedicineOpen(true);
   };
@@ -66,34 +76,66 @@ const PharmacyAppContent: React.FC = () => {
     switch (activePage) {
       case 'dashboard':
         return <DashboardPage />;
+
       case 'medicines':
-        return <MedicinesPage onEditMedicine={handleOpenEditMedicine} />;
+        return (
+          <MedicinesPage
+            onEditMedicine={
+              handleOpenEditMedicine
+            }
+          />
+        );
+
       case 'inventory':
         return <InventoryPage />;
+
       case 'categories':
         return <CategoriesPage />;
+
       case 'prescriptions':
         return <PrescriptionValidationPage />;
+
       case 'generics':
         return <GenericSuggestionsPage />;
+
       case 'ai-insights':
         return <AIInsightsPage />;
+
       case 'suppliers':
         return <SuppliersPage />;
+
+      /*
+       * CUSTOMER PHARMACY RECOMMENDATION
+       *
+       * This connects the Sidebar navigation item:
+       * "Find Pharmacy"
+       *
+       * to the PharmacyFinderPage component.
+       */
+      case 'pharmacy-finder':
+        return <PharmacyFinderPage />;
+
       case 'customers':
         return <CustomersPage />;
+
       case 'sales':
         return <SalesPage />;
+
       case 'purchases':
         return <PurchasesPage />;
+
       case 'forecast':
         return <DemandForecastPage />;
+
       case 'reports':
         return <ReportsPage />;
+
       case 'notifications':
         return <NotificationsPage />;
+
       case 'settings':
         return <SettingsPage />;
+
       default:
         return <DashboardPage />;
     }
@@ -101,66 +143,117 @@ const PharmacyAppContent: React.FC = () => {
 
   return (
     <div className="flex h-screen bg-slate-50 overflow-hidden font-sans antialiased text-slate-800">
+
       {/* Sidebar Navigation */}
-      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() =>
+          setIsSidebarOpen(false)
+        }
+      />
 
       {/* Main Workspace */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+
         {/* Top Header */}
         <Topbar
-          onToggleSidebar={() => setIsSidebarOpen(prev => !prev)}
-          onOpenAiAssistant={() => setIsAiDrawerOpen(true)}
+          onToggleSidebar={() =>
+            setIsSidebarOpen(
+              prev => !prev
+            )
+          }
+          onOpenAiAssistant={() =>
+            setIsAiDrawerOpen(true)
+          }
         />
 
         {/* Page Content Scrollable Area */}
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto pb-12">
+
+            {/* 
+             * The active page is rendered here.
+             *
+             * When activePage === "pharmacy-finder",
+             * PharmacyFinderPage will appear here.
+             */}
             {renderActivePage()}
+
           </div>
         </main>
       </div>
 
-      {/* Global Modals & Drawers */}
+      {/* =====================================================
+          GLOBAL MODALS & DRAWERS
+          ===================================================== */}
+
       <GlobalSearchModal
         isOpen={isSearchOpen}
-        onClose={() => setIsSearchOpen(false)}
+        onClose={() =>
+          setIsSearchOpen(false)
+        }
       />
 
       <AddEditMedicineModal
         isOpen={isAddMedicineOpen}
-        onClose={handleCloseAddEditMedicine}
-        medicineToEdit={editingMedicine}
+        onClose={
+          handleCloseAddEditMedicine
+        }
+        medicineToEdit={
+          editingMedicine
+        }
       />
 
       <NewSalePosModal
         isOpen={isNewSaleOpen}
-        onClose={() => setIsNewSaleOpen(false)}
+        onClose={() =>
+          setIsNewSaleOpen(false)
+        }
       />
 
       <CreatePurchaseOrderModal
         isOpen={isCreatePOOpen}
-        onClose={() => setIsCreatePOOpen(false)}
+        onClose={() =>
+          setIsCreatePOOpen(false)
+        }
       />
 
       <ReceiveStockModal
-        isOpen={!!selectedPOForReceiving}
-        onClose={() => setSelectedPOForReceiving(null)}
-        purchaseOrder={selectedPOForReceiving}
+        isOpen={
+          !!selectedPOForReceiving
+        }
+        onClose={() =>
+          setSelectedPOForReceiving(null)
+        }
+        purchaseOrder={
+          selectedPOForReceiving
+        }
       />
 
       <MedicineDetailDrawer
-        medicineId={selectedMedicineIdForDetails}
-        onClose={() => setSelectedMedicineIdForDetails(null)}
-        onEdit={handleOpenEditMedicine}
+        medicineId={
+          selectedMedicineIdForDetails
+        }
+        onClose={() =>
+          setSelectedMedicineIdForDetails(null)
+        }
+        onEdit={
+          handleOpenEditMedicine
+        }
       />
 
       <AiAssistantDrawer
-        isOpen={isAiDrawerOpen}
-        onClose={() => setIsAiDrawerOpen(false)}
+        isOpen={
+          isAiDrawerOpen
+        }
+        onClose={() =>
+          setIsAiDrawerOpen(false)
+        }
       />
 
       {/* Notification Toast System */}
       <ToastContainer />
+
     </div>
   );
 };
