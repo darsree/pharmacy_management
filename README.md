@@ -1,20 +1,56 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 💊 MediCore — Smart Pharmacy Management System
 
-# Run and deploy your AI Studio app
+> A modern, AI-powered pharmacy management platform designed to simplify medicine inventory, supplier management, purchasing, and pharmacy discovery.
 
-This contains everything you need to run your app locally.
+---
 
-View your app in AI Studio: https://ai.studio/apps/20f6e066-bf6e-426a-9102-73c29c08c94b
+## 🌟 Overview
 
-## Run Locally
+**MediCore** is a full-stack pharmacy management system that brings together pharmacy operations, medicine inventory, supplier management, AI assistance, and intelligent recommendations in one platform.
 
-**Prerequisites:**  Node.js
+The system helps **pharmacists and administrators** manage medicines and suppliers efficiently, while allowing **customers** to find pharmacies that best match their medicine requirements.
 
+### 🎯 Core Goals
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- 📦 Efficient medicine & inventory management
+- 🚚 Intelligent supplier selection
+- 🏥 Pharmacy discovery for customers
+- 🤖 AI-powered assistance
+- 📊 Centralized pharmacy operations
+- 🔐 Secure authentication and data management
+
+---
+
+## ✨ Key Features
+
+### 📦 Medicine & Inventory Management
+
+- Add, update, and manage medicines
+- Track medicine stock levels
+- Monitor expiry dates
+- Manage medicine categories
+- Identify low-stock medicines
+- Maintain centralized inventory records
+
+---
+
+### 🚚 Smart Supplier Recommendation
+
+MediCore intelligently recommends the **best supplier** for a selected medicine.
+
+The recommendation engine evaluates multiple factors:
+
+```text
+Supplier Evaluation
+       │
+       ├── 💰 Purchase Price
+       ├── 🚚 Delivery Performance
+       ├── ⭐ Supplier Rating
+       ├── 📦 Product Availability
+       └── ⏱️ Lead Time
+              │
+              ▼
+      Weighted Scoring
+              │
+              ▼
+    🏆 Best Supplier
