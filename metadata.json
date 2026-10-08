@@ -1,0 +1,6 @@
+{
+  "name": "MediCore – AI-Assisted Smart Pharmacy Management System",
+  "description": "AI-assisted smart pharmacy management platform with batch-level inventory tracking, expiry prevention, POS, prescription safety validation, and demand forecasting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
